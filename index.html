@@ -13,7 +13,7 @@
       --red: #d0001d;
       --font: "Courier New", "SF Mono", Menlo, Consolas, monospace;
       --radius: 22px;
-      --motion-duration: 10s;
+      --shine-duration: 10s;
       --mark-width: min(92vw, 430px);
     }
 
@@ -83,15 +83,36 @@
       text-align: center;
       letter-spacing: clamp(0.06em, 1.8vw, 0.16em);
       color: var(--text);
-      animation: settle var(--motion-duration) cubic-bezier(0.22, 1, 0.36, 1) infinite;
-      will-change: transform, opacity, filter;
     }
 
-    .shine:nth-child(2) {
+    .shine::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: transparent;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        transparent 40%,
+        #ffffff 48%,
+        #ffffff 52%,
+        transparent 60%,
+        transparent 100%
+      );
+      background-size: 240% 100%;
+      background-position: 140% 0;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: occasionalShine var(--shine-duration) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      pointer-events: none;
+    }
+
+    .shine:nth-child(2)::after {
       animation-delay: 120ms;
     }
 
-    .shine:nth-child(3) {
+    .shine:nth-child(3)::after {
       animation-delay: 240ms;
     }
 
@@ -106,29 +127,20 @@
       letter-spacing: clamp(0.08em, 2vw, 0.17em);
     }
 
-    @keyframes settle {
+    @keyframes occasionalShine {
       0%,
-      70%,
+      74% {
+        opacity: 0;
+        background-position: 140% 0;
+      }
+
+      78% {
+        opacity: 0.9;
+      }
+
       100% {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateX(0) scale(1);
-      }
-
-      76% {
-        opacity: 0.35;
-        filter: blur(1.6px);
-        transform: translateX(-18px) scale(0.97);
-      }
-
-      86% {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateX(8px) scale(1.02);
-      }
-
-      93% {
-        transform: translateX(-3px) scale(0.995);
+        opacity: 0;
+        background-position: -140% 0;
       }
     }
 
@@ -152,7 +164,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .shine {
+      .shine::after {
         animation: none;
       }
     }
@@ -164,9 +176,9 @@
       <div class="line" aria-hidden="true"></div>
 
       <div class="text">
-        <span class="shine text__small">Discipline</span>
-        <span class="shine text__large">Equals</span>
-        <span class="shine text__large">Freedom</span>
+        <span class="shine text__small" data-text="Discipline">Discipline</span>
+        <span class="shine text__large" data-text="Equals">Equals</span>
+        <span class="shine text__large" data-text="Freedom">Freedom</span>
       </div>
 
       <div class="line" aria-hidden="true"></div>
