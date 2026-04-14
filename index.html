@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Discipline Equals Freedom</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --text: #f7f7f7;
+      --dim: #bdbdbd;
+      --red: #d0001d;
+      --font: "Courier New", "SF Mono", Menlo, Consolas, monospace;
+      --radius: 22px;
+      --shine-duration: 10s;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .widget {
+      width: min(100%, 680px);
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      padding: clamp(28px, 8vmin, 64px);
+      border-radius: var(--radius);
+      background: var(--bg);
+    }
+
+    .mark {
+      width: min(100%, 360px);
+      display: grid;
+      justify-items: center;
+      gap: clamp(10px, 3vmin, 16px);
+      text-align: center;
+      user-select: none;
+    }
+
+    .line {
+      width: 38%;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .line--bottom {
+      justify-self: end;
+    }
+
+    .text {
+      display: grid;
+      gap: clamp(6px, 2vmin, 10px);
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: var(--text);
+    }
+
+    .shine {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      letter-spacing: 0.16em;
+      background: linear-gradient(
+        105deg,
+        var(--dim) 0%,
+        var(--text) 28%,
+        #ffffff 42%,
+        var(--text) 56%,
+        var(--dim) 100%
+      );
+      background-size: 260% 100%;
+      background-position: 130% 0;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: lightSweep var(--shine-duration) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+
+    .shine::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        100deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.34) 50%,
+        transparent 60%,
+        transparent 100%
+      );
+      transform: translateX(-140%);
+      animation: lightBeam var(--shine-duration) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      pointer-events: none;
+    }
+
+    .text__small {
+      font-size: clamp(23px, 6.6vmin, 38px);
+      font-weight: 600;
+    }
+
+    .text__large {
+      font-size: clamp(44px, 12vmin, 72px);
+      font-weight: 500;
+      letter-spacing: 0.19em;
+    }
+
+    @keyframes lightSweep {
+      0%, 72% { background-position: 130% 0; }
+      100% { background-position: -130% 0; }
+    }
+
+    @keyframes lightBeam {
+      0%, 72% {
+        transform: translateX(-140%);
+        opacity: 0;
+      }
+
+      76% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(140%);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 430px) {
+      body {
+        padding: 10px;
+      }
+
+      .widget {
+        min-height: 240px;
+        padding: 24px;
+      }
+
+      .mark {
+        width: min(100%, 310px);
+      }
+
+      .line {
+        width: 42%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shine,
+      .shine::after {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="widget" aria-label="Discipline equals freedom">
+    <section class="mark">
+      <div class="line" aria-hidden="true"></div>
+
+      <div class="text">
+        <span class="shine text__small">Discipline</span>
+        <span class="shine text__large">Equals</span>
+        <span class="shine text__large">Freedom</span>
+      </div>
+
+      <div class="line line--bottom" aria-hidden="true"></div>
+    </section>
+  </main>
+</body>
+</html>
