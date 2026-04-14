@@ -14,9 +14,12 @@
       --font: "Courier New", "SF Mono", Menlo, Consolas, monospace;
       --radius: 22px;
       --shine-duration: 10s;
+      --mark-width: min(92vw, 430px);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html,
     body {
@@ -37,16 +40,17 @@
 
     .widget {
       width: min(100%, 680px);
-      min-height: 320px;
+      min-height: 300px;
       display: grid;
       place-items: center;
-      padding: clamp(28px, 8vmin, 64px);
+      padding: clamp(22px, 7vmin, 56px);
       border-radius: var(--radius);
       background: var(--bg);
     }
 
     .mark {
-      width: min(100%, 360px);
+      width: var(--mark-width);
+      max-width: 100%;
       display: grid;
       justify-items: center;
       gap: clamp(10px, 3vmin, 16px);
@@ -65,6 +69,8 @@
     }
 
     .text {
+      width: 100%;
+      min-width: 0;
       display: grid;
       gap: clamp(6px, 2vmin, 10px);
       text-transform: uppercase;
@@ -75,17 +81,20 @@
     .shine {
       position: relative;
       display: block;
+      max-width: 100%;
       overflow: hidden;
       white-space: nowrap;
-      letter-spacing: 0.16em;
-      background: linear-gradient(
-        105deg,
-        var(--dim) 0%,
-        var(--text) 28%,
-        #ffffff 42%,
-        var(--text) 56%,
-        var(--dim) 100%
-      );
+      text-align: center;
+      letter-spacing: clamp(0.06em, 1.8vw, 0.16em);
+      background:
+        linear-gradient(
+          105deg,
+          var(--dim) 0%,
+          var(--text) 28%,
+          #ffffff 42%,
+          var(--text) 56%,
+          var(--dim) 100%
+        );
       background-size: 260% 100%;
       background-position: 130% 0;
       background-clip: text;
@@ -113,23 +122,30 @@
     }
 
     .text__small {
-      font-size: clamp(23px, 6.6vmin, 38px);
+      font-size: clamp(21px, 6.2vmin, 38px);
       font-weight: 600;
     }
 
     .text__large {
-      font-size: clamp(44px, 12vmin, 72px);
+      font-size: clamp(36px, 10vmin, 66px);
       font-weight: 500;
-      letter-spacing: 0.19em;
+      letter-spacing: clamp(0.08em, 2vw, 0.17em);
     }
 
     @keyframes lightSweep {
-      0%, 72% { background-position: 130% 0; }
-      100% { background-position: -130% 0; }
+      0%,
+      72% {
+        background-position: 130% 0;
+      }
+
+      100% {
+        background-position: -130% 0;
+      }
     }
 
     @keyframes lightBeam {
-      0%, 72% {
+      0%,
+      72% {
         transform: translateX(-140%);
         opacity: 0;
       }
@@ -151,11 +167,11 @@
 
       .widget {
         min-height: 240px;
-        padding: 24px;
+        padding: 20px 14px;
       }
 
       .mark {
-        width: min(100%, 310px);
+        width: min(94vw, 340px);
       }
 
       .line {
